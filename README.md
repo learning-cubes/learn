@@ -8,9 +8,9 @@ Prerequisites
 -------------
 
 The prototype requires Microsoft Z3 (https://github.com/Z3Prover/z3)for python and python to run. The easiest way to obtain z3 for python
-is with the pip-installer by typing:
+is with the pip3 installer by typing:
 
-        pip-install z3-solver
+        pip3 install z3-solver
 
 
 Running the prototype
@@ -44,7 +44,7 @@ We have 4 types of benchmarks available.
 
 On Linux, for instance, the prototype can be started using the command
 
-    ./python maximal_cubes.py dia-r max-o 50
+    ./python3 maximal_cubes.py dia-r max-o 50
          
 
 The prototype outputs the total time needed to solve the benchmark at the end.
