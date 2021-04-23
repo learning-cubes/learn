@@ -2,6 +2,16 @@
 
 Link to the .ova file containing this tool: https://drive.google.com/file/d/1bN5GSb788YajaNAy6Zxwpgi9NW4-uWxL/view?usp=sharing
 
+Run the .ova file as follows:
+
+1. Download and install VirtualBox if you don’t have it already.
+2. Open VirtualBox
+3. Select File and Import Appliance
+4. Select your OVA file in the import box and verify the settings in the center window
+5. Make any changes if you need to in that center window
+6. Click Import at the bottom.
+7. Allow VirtualBox to import the file and configure it for use
+
 Learning Algorithm for learning cubes in linear integer arithmetic using membership, equivalence and inclusion queries
 =================================
 
