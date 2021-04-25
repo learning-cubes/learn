@@ -285,17 +285,39 @@ def control_unit(k):
     assert(isUnsat(res != R(var)))             #check correctness 
     print("mondec1(", R(var), ") =", res)		
 
+def mondec_implies(k):
+	x,y  = Ints('x y')
+	var = [x,y]
+	R = lambda b: Implies(And(0 <= b[0], b[0] <= k),And(0 <= b[1], b[0] +b[1] <=k))
+	res = mondec(R,var)
+	assert(isUnsat(res != R([x,y])))             #check correctness 	
+
+def mondec_implies2(k):
+	x,y  = Ints('x y')
+	var = [x,y]
+	R = lambda b: Implies(0 <= b[0],And(0 <= b[1], b[0] +b[1] >=k))
+	res = mondec(R,var)
+	assert(isUnsat(res != R([x,y])))             #check correctness 	
+	#print("cindy(", R([x,y]), ") =", res)
+
+def diagonal(k):
+	x,y  = Ints('x y')
+	var = [x,y]
+	R = lambda b: And(b[0] == b[1], b[0] >= 0, b[0] <= k, b[1] >= 0, b[1] <= k)
+	res = mondec(R,var)
+	assert(isUnsat(res != R([x,y])))             #check correctness 	
+
+
 if __name__ == '__main__':
-	#resultCav = cav2009_10vars("b1.smt2",-5,5, max_cube = True, u = False, b = False,  o = True)
-	#cindy(max_cube = False, u = True, b = False, o = False)
-	#control_unit(50)
+
 	# arg1: name of the smt file or benchmark
 	'''
 	1. dia-r
 	2. dia-u
 	3. big-c
 	4. k-cubes
-	5. file name	
+	5. k-dia	
+	6. mondec
 	'''
 	# arg2 : parameter k for suites 1-4
 	# arg3 : parameter d for suite 4
@@ -348,5 +370,15 @@ if __name__ == '__main__':
 			print("Total time needed: ", end - start)
 		else:
 			print("Benchmark not implemented")
+	elif sys.argv[1] == "k-dia":
+		start = time.time()
+		diagonal(int(sys.argv[2]))	
+		end = time.time()	
+		print("Total time needed: ", end - start)
+	elif sys.argv[1] == "mondec":
+		start = time.time()
+		mondec_implies2(int(sys.argv[2]))	
+		end = time.time()		
+		print("Total time needed: ", end - start)		
 	else:
 		print("Command ", sys.argv[1], "  not recognized")
