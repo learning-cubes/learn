@@ -987,6 +987,7 @@ def test2_and(k,max_cube = True, u = True, b = False, o = False):
 	var = [x,y]	
 	target = Or([And(x <= i+2,x >= i,y >= i,y <= i+2) for i in range(1,k)])
 	target = And(target, x + y <= k)
+	print(target)
 	#target = Or(target, And(x + y == k, And(x >= 0, y >= 0)))	
 	teacher = Teacher(var,target)
 	start = time.time()
@@ -1005,7 +1006,7 @@ def test2_and(k,max_cube = True, u = True, b = False, o = False):
 		result_m_c = False
 		for cube_formula in result:
 			result_m_c = Or(result_m_c, cube_formula)
-			#print("Formula: ", cube_formula, "\n")
+			print("Formula: ", cube_formula, "\n")
 		prove(result_m_c == target)
 		return result_m_c
 	prove(result == target)
@@ -1493,6 +1494,22 @@ def cindy(max_cube = True, u = False, b = False, o = True):
 	end = time.time()	
 	print("Total time needed: ", end - start)
 
+def mondec1(k, max_cube = True, u = False, b = False, o = True):
+	print(max_cube,u,b,o)
+	x,y  = Ints('x y')
+	var = [x,y]
+	target = Implies(And(0 <= x, x <= k),And(0 <= y, x +y <=k))
+	teacher = Teacher(var, target)
+	start = time.time()
+	if max_cube:
+		learner = Learner_max_cubes(var, unary = u, binary = b, optimized = o)
+		result = learner.learn(teacher)
+	else:
+		learner = Learner_trial_and_overshoot(var, unary = u, binary = b)
+		result = learner.learn(teacher,target)			
+	end = time.time()	
+	print("Total time needed: ", end - start)
+
 def cindy300c(max_cube = True, u = False, b = False, o = True):
 	b1,b2,b3,b4,b5,r  = Ints('b1 b2 b3 b4 b5 r')
 	var = [b1,b2,b3,b4,b5,r]
@@ -1572,6 +1589,79 @@ def control_unit(k, max_cube = True, u = False, b = False, o = True):
 	end = time.time()	
 	print("Total time needed: ", end - start)
 	
+
+def	diagonal(k, max_cube = True, u = False, b = False, o = True):
+	# one big cube
+	x = Int('x')
+	y = Int('y')
+	var = [x,y]
+	target = And(x == y, x >= 0, x <= k, y >= 0, y <= k)
+	
+	teacher = Teacher(var, target)
+	start = time.time()
+	if max_cube:
+		learner =Learner_max_cubes(var, unary = u, binary = b, optimized = o)
+		result = learner.learn(teacher)
+	else:
+		learner = Learner_trial_and_overshoot(var, unary = u, binary = b)
+		result = learner.learn(teacher,target)			
+	end = time.time()
+	print("Total time needed: ", end - start)
+	if max_cube:
+		print("Length: ", len(result))
+		result_m_c = False
+		for cube_formula in result:
+			result_m_c = Or(result_m_c, cube_formula)
+			#print("Formula: ", cube_formula, "\n")
+		prove(result_m_c == target)
+		return result_m_c
+	prove(result == target)
+	return result	
+	
+def	diagonal_5d(k, max_cube = True, u = False, b = False, o = True):
+	# one big cube
+	
+	x = Int('x')
+	y = Int('y')
+	var = [x,y]
+	target = And(x == y, x >= 0, x <= 10000, y >= 0, y <= 10000)
+	
+	teacher = Teacher(var, target)
+	start = time.time()
+	if max_cube:
+		learner =Learner_max_cubes(var, unary = u, binary = b, optimized = o)
+		result = learner.learn(teacher)
+	else:
+		learner = Learner_trial_and_overshoot(var, unary = u, binary = b)
+		result = learner.learn(teacher,target)			
+	end = time.time()
+	print("Total time needed: ", end - start)
+	if max_cube:
+		print("Length: ", len(result))
+		result_m_c = False
+		for cube_formula in result:
+			result_m_c = Or(result_m_c, cube_formula)
+			#print("Formula: ", cube_formula, "\n")
+		prove(result_m_c == target)
+		return result_m_c
+	prove(result == target)
+	return result
+
+def mondec2(k, max_cube = True, u = False, b = False, o = True):
+	x,y  = Ints('x y')
+	var = [x,y]
+	target = Implies(x >= 0,And( y >= 0, x +y >=k))
+	teacher = Teacher(var, target)
+	start = time.time()
+	if max_cube:
+		learner = Learner_max_cubes(var, unary = u, binary = b, optimized = o)
+		result = learner.learn(teacher)
+	else:
+		learner = Learner_trial_and_overshoot(var, unary = u, binary = b)
+		result = learner.learn(teacher,target)			
+	end = time.time()	
+	print("Total time needed: ", end - start)
+
 def z3_abs(x):
 	return If(x >=0, x, -x)
 	
@@ -1585,16 +1675,16 @@ def neg(x):
 	return 1-x
 	
 if __name__ == '__main__':
-	#resultCav = cav2009_10vars("b1.smt2",-5,5, max_cube = True, u = False, b = False,  o = True)
-	#cindy(max_cube = False, u = True, b = False, o = False)
-	#control_unit(50)
+
 	# arg1: name of the smt file or benchmark
+	
 	'''
 	1. dia-r
 	2. dia-u
 	3. big-c
 	4. k-cubes
-	5. file name
+	5. k-dia
+	6. mondec
 	'''
 	# arg2: name of tool
 	'''
@@ -1641,6 +1731,12 @@ if __name__ == '__main__':
 	elif sys.argv[1] == "k-cubes":
 		print("\n Running test on k overlapping cube... \n", sys.argv[2], " Parameter k: ", sys.argv[3], "Dimension d: ", sys.argv[4])
 		test2_k_d(int(sys.argv[4]),int(sys.argv[3]), max_cube = m1, u = u1, b = b1, o = o1)
+	elif sys.argv[1] == "k-dia":
+		print("\n Running test on k diagonal... \n", sys.argv[2], " Parameter k: ", sys.argv[3])
+		diagonal(int(sys.argv[3]), max_cube = m1, u = u1, b = b1, o = o1)
+	elif sys.argv[1] == "mondec":
+		print("\n Running test on mondec. WARNING: Will only terminate if max-o is chosen... \n", sys.argv[2], " Parameter k: ", sys.argv[3])
+		mondec2(int(sys.argv[3]), max_cube = m1, u = u1, b = b1, o = o1)
 	else:
 		print("Command ", sys.argv[1], "  not recognized")
 		
