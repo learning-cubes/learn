@@ -32,11 +32,13 @@ Running the prototype
 To run the prototype, several arguments have to be passed to the python call.
 
 1) Benchmark selection:
-We have 4 types of benchmarks available.
+We have 6 types of benchmarks available.
     - dia-r (This is K Diagonal Restricted in the paper)
     - dia-u (This is K Diagonal Unrestricted in the paper)
     - big-c (This is K Big Overlapping Cube in the paper)
     - k-cubes (This is K cubes in Z^d in the paper)
+    - k-dia (This is K Diagonal in the paper)
+    - mondec (This is Example 2 in the paper)
 
 2) Tool selection:
 
@@ -64,7 +66,7 @@ The prototype outputs the total time needed to solve the benchmark at the end.
 
 # Running mondec
 
-We compared our tool against mondec1 from (https://www.microsoft.com/en-us/research/wp-content/uploads/2017/04/mondec.pdf).
+We compared our tool against mondec_1 from (https://www.microsoft.com/en-us/research/wp-content/uploads/2017/04/mondec.pdf).
 
 The benchmarks can be run in a similar way except there is no tool selection.
 We have 1) Benchmark 2) Parameter K 3) Parameter D
