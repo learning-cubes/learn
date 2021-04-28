@@ -20,14 +20,39 @@ This file describes how to compile and run the learner.
 Prerequisites
 -------------
 
-The prototype requires Microsoft Z3 (https://github.com/Z3Prover/z3)for python and python to run. The easiest way to obtain z3 for python
+The prototype requires Microsoft Z3 (https://github.com/Z3Prover/z3)
+for python and python to run. The easiest way to obtain z3 for python
 is with the pip3 installer by typing:
 
-        pip3 install z3-solver
-        
-To compile a plot of the benchmarks following latex packages are needed: texlive-base and texlive-pictures. You can install them in linux ubuntu as follows:
+	pip3 install z3-solver
 
-	apt-get install texlive-base; apt-get install texlive-pictures
+To reproduce the benchmark plot (Fig. 7 in the paper), LaTeX is required and can be installed on debian/ubuntu as follows:
+
+	sudo apt-get install texlive-base texlive-pictures
+
+Reproducing the results from the article
+----------------------------------------
+
+In order to generate the file `plots.pdf`, please run:
+
+	./experiments.sh all
+
+The keyword `all` can be replaced by one of the 6 benchmarks below, a second
+optional parameter can be used to specify K or D (depending on the considered
+benchmark).
+All results can be found in the `generated` and compared to the `reference_data`
+data folder used in the article.
+They can be erased by using the `clean` keyword.
+Finally, they can be visualized at any time by issuing:
+
+	pdflatex plots.tex
+	evince plots.pdf
+
+As large parameter values could take time to evaluate, we recommend evaluating
+each benchmark one by one (see list below),
+and stop the procedure when too much time is taken.
+The list of benchmarks, timeout value and considered tools and parameter values
+can be edited in the constants of `experiments.sh`.
 
 Running the prototype
 ---------------------
@@ -62,28 +87,10 @@ We have 6 types of benchmarks available.
 
 On Linux, for instance, the prototype can be started using the command
 
-    ./python3 maximal_cubes.py dia-r max-o 50
+    python3 maximal_cubes.py dia-r max-o 50
          
 
 The prototype outputs the total time needed to solve the benchmark at the end.
-You can use the script 'experiments.sh' to run all the benchmarks:
-
-        ./experiments.sh all
-
-
-Plotting the results
----------------------
-
-The file plots.tex imports all the results from the experiments and visualizes them as a plot. Obtain the pdf with the following command:
-
-        pdflatex plots.tex
-
-Using own input data
----------------------
-
-You can use files in the SMT-LIB standard to run your own benchmarks on our provided tools. The tool requires as argument the variant that should be run, the file and the variables in the benchmark. One example is the file 'example.smt2' and it can be run as follows:
-
-	./python3 run-smtlib.py max-o example.smt2 x y
 
 # Running mondec
 
@@ -94,4 +101,5 @@ We have 1) Benchmark 2) Parameter K 3) Parameter D
 
 On Linux, for instance, the prototype can be started using the command
 
-    ./python mondec.py dia-r 50
+	python3 mondec.py dia-r 50
+
