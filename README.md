@@ -103,3 +103,9 @@ On Linux, for instance, the prototype can be started using the command
 
 	python3 mondec.py dia-r 50
 
+Using own input data
+---------------------
+
+You can use files in the SMT-LIB standard to run your own benchmarks on all of the tools. The program requires as argument the variant that should be run and the file as an input. One example is the file 'example.smt2' and it can be run as follows:
+
+	python3 run-smtlib.py max-o benchmarks/example.smt2
