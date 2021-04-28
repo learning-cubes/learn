@@ -8,7 +8,7 @@ Run the .ova file as follows:
 2. Open VirtualBox
 3. Select File and Import Appliance
 4. Select your OVA file in the import box and verify the settings in the center window
-5. Make any changes if you need to in that center window
+5. Make any changes if you need to in that center window (Recommended: 2 cores and 4GB RAM)
 6. Click Import at the bottom.
 7. Allow VirtualBox to import the file and configure it for use
 
