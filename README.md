@@ -78,6 +78,13 @@ The file plots.tex imports all the results from the experiments and visualizes t
 
         pdflatex plots.tex
 
+Using own input data
+---------------------
+
+You can use files in the SMT-LIB standard to run your own benchmarks on our provided tools. The tool requires as argument the variant that should be run, the file and the variables in the benchmark. One example is the file 'example.smt2' and it can be run as follows:
+
+	./python3 run-smtlib.py max-o example.smt2 x y
+
 # Running mondec
 
 We compared our tool against mondec_1 from (https://www.microsoft.com/en-us/research/wp-content/uploads/2017/04/mondec.pdf).
