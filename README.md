@@ -24,7 +24,10 @@ The prototype requires Microsoft Z3 (https://github.com/Z3Prover/z3)for python a
 is with the pip3 installer by typing:
 
         pip3 install z3-solver
+        
+To compile a plot of the benchmarks following latex packages are needed: texlive-base and texlive-pictures. You can install them in linux ubuntu as follows:
 
+	apt-get install texlive-base; apt-get install texlive-pictures
 
 Running the prototype
 ---------------------
@@ -63,6 +66,17 @@ On Linux, for instance, the prototype can be started using the command
          
 
 The prototype outputs the total time needed to solve the benchmark at the end.
+You can use the script 'experiments.sh' to run all the benchmarks:
+
+        ./experiments.sh all
+
+
+Plotting the results
+---------------------
+
+The file plots.tex imports all the results from the experiments and visualizes them as a plot. Obtain the pdf with the following command:
+
+        pdflatex plots.tex
 
 # Running mondec
 
