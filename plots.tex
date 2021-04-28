@@ -1,0 +1,319 @@
+\documentclass{llncs}
+
+\usepackage{mathtools}  % amsmath with extensions
+\usepackage{amssymb}  % (otherwise \mathbb does nothing)
+\usepackage{graphicx}
+\usepackage{epic,eepic}
+\usepackage{pgfplots}
+\pgfplotsset{compat = newest}
+
+
+
+%\renewcommand{\floatpagefraction}{.8}%
+
+
+\pagestyle{plain}
+
+%%%%%%%%%%%%%%%   MACROS  %%%%%%%%%%%%%%%%%%
+
+
+%\input{common}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\title{Benchmarks of Learning Union of Integer Hypercubes with Queries \\
+    {\small (with applications to monadic decomposition)}}
+
+\author{}
+
+\institute{}
+
+\begin{document}
+
+This document replicates the figure 7 of the main article. In order to generate
+the plot, please run \verb|experiments.sh| with the benchmark name before
+compiling this file.
+
+\def\subdir{generated}
+\def\scale{1}
+
+\begin{figure}
+	\pgfplotstableread{\subdir/dia-r.dat}{\table}
+	
+	\begin{tikzpicture}[scale=\scale]
+		\begin{axis}[
+			xmin = 50, xmax = 500,
+			ymin = 0, ymax = 1800,
+			xtick distance = 50,
+			ytick distance = 200,
+			grid = none,
+			minor tick num = 5,
+			major grid style = {lightgray},
+			minor grid style = {lightgray!25},
+			width = \textwidth+20,
+			height = 0.75\textwidth,
+			legend cell align = {left},
+			legend pos = south east,
+			legend style={
+				at={(0,0)},
+				anchor=north,at={(axis description cs:0.3,-0.1)}}
+			]
+			
+			\addplot[blue] table [x = {x}, y = {y1}] {\table};
+			
+			\addplot[red] table [x ={x}, y = {y2}] {\table};
+			
+			\addplot[teal] table [x = {x}, y = {y3}] {\table};
+			
+			\addplot[purple] table [x = {x}, y = {y4}] {\table};
+			\addplot[orange] table [x = {x}, y = {y5}] {\table};
+			\addplot[gray] table [x = {x}, y = {y6}] {\table};
+	\legend{
+		overshoot\_unary, 
+		overshoot\_binary,
+		max\_unary,
+		max\_binary,
+		max\_optimized,
+		mondec$_1$
+	}
+		\end{axis}
+	\end{tikzpicture}
+	\caption{dia-r: Benchmark on K Diagonal Restricted in $\mathbb{Z}^2$.
+        The x-axis encodes the amount of cubes $K$.}
+	\label{fig:k-dia-res}
+\end{figure}
+
+%% 
+\begin{figure}
+	\pgfplotstableread{\subdir/k-cubes.dat}{\table}
+	
+	\begin{tikzpicture}[scale=\scale]
+		\begin{axis}[		
+			xmin = 3, xmax = 200,
+			ymin = 0, ymax = 1800,
+			xtick distance = 50,
+			ytick distance = 200,
+			grid = none,
+			minor tick num = 5,
+			major grid style = {lightgray},
+			minor grid style = {lightgray!25},
+			width = \textwidth+20,
+			height = 0.75\textwidth,
+			legend cell align = {left},
+			legend pos = south east,
+			legend style={
+				at={(0,0)},
+				anchor=north,at={(axis description cs:0.3,-0.1)}}
+			]
+			
+			\addplot[blue] table [x = {x}, y = {y1}] {\table};
+			
+			\addplot[red] table [x ={x}, y = {y2}] {\table};
+			
+			\addplot[teal] table [x = {x}, y = {y3}] {\table};
+			
+			\addplot[purple] table [x = {x}, y = {y4}] {\table};
+			\addplot[orange] table [x = {x}, y = {y5}] {\table};
+			\addplot[gray] table [x = {x}, y = {y6}] {\table};
+			\legend{
+				overshoot\_unary, 
+				overshoot\_binary,
+				max\_unary,
+				max\_binary,
+				max\_optimized,
+				mondec$_1$
+			}
+		\end{axis}
+		
+	\end{tikzpicture}
+	\caption{k-cubes: Benchmark on 10 cubes in $\mathbb{Z}^d$.
+    The x-axis encodes the dimension $d$.}
+	\label{fig:dimension-d}
+\end{figure}
+
+
+%%
+\begin{figure}
+	\pgfplotstableread{\subdir/dia-u.dat}{\table}
+	
+	\begin{tikzpicture}[scale=\scale]
+		\begin{axis}[		
+			xmin = 50, xmax = 500,
+			ymin = 0, ymax = 1800,
+			xtick distance = 50,
+			ytick distance = 200,
+			grid = none,
+			minor tick num = 5,
+			major grid style = {lightgray},
+			minor grid style = {lightgray!25},
+			width = \textwidth +20,
+			height = 0.75\textwidth,
+			legend cell align = {left},
+			legend pos = south east,
+			legend style={
+				at={(0,0)},
+				anchor=north,at={(axis description cs:0.3,-0.1)}}
+			]
+			
+			\addplot[blue] table [x = {x}, y = {y1}] {\table};
+			
+			\addplot[red] table [x ={x}, y = {y2}] {\table};
+			
+			\addplot[teal] table [x = {x}, y = {y3}] {\table};
+			
+			\addplot[purple] table [x = {x}, y = {y4}] {\table};
+			\addplot[orange] table [x = {x}, y = {y5}] {\table};
+			\addplot[gray] table [x = {x}, y = {y6}] {\table};
+			\legend{
+				overshoot\_unary, 
+				overshoot\_binary,
+				max\_unary,
+				max\_binary,
+				max\_optimized,
+				mondec$_1$
+			}
+			
+		\end{axis}
+		
+	\end{tikzpicture}
+	\caption{dia-u: Benchmark on K Diagonal Unrestricted in $\mathbb{Z}^2$.
+    The x-axis encodes the amount of cubes $K$.}
+	\label{fig:k-dia-unre}
+\end{figure}
+
+%%
+\begin{figure}
+	\pgfplotstableread{\subdir/big-c.dat}{\table}
+	
+	\begin{tikzpicture}[scale=\scale]
+		\begin{axis}[		
+			xmin = 50, xmax = 500,
+			ymin = 0, ymax = 1800,
+			xtick distance = 50,
+			ytick distance = 200,
+			grid = none,
+			minor tick num = 5,
+			major grid style = {lightgray},
+			minor grid style = {lightgray!25},
+			width = \textwidth+20,
+			height = 0.75\textwidth,
+			legend cell align = {left},
+			legend pos = south east,
+			legend style={
+				at={(0,0)},
+				anchor=north,at={(axis description cs:0.3,-0.1)}}
+			]
+			
+			\addplot[blue] table [x = {x}, y = {y1}] {\table};
+			\addplot[red] table [x ={x}, y = {y2}] {\table};
+			\addplot[teal] table [x = {x}, y = {y3}] {\table};
+			\addplot[purple] table [x = {x}, y = {y4}] {\table};
+			\addplot[orange] table [x = {x}, y = {y5}] {\table};
+			\addplot[gray] table [x = {x}, y = {y6}] {\table};
+
+			\legend{
+				overshoot\_unary, 
+				overshoot\_binary,
+				max\_unary,
+				max\_binary,
+				max\_optimized,
+				mondec$_1$
+			}
+			
+		\end{axis}
+		
+	\end{tikzpicture}
+	\caption{big-c: Benchmark on K Big Cubes in $\mathbb{Z}^2$.
+        The x-axis encodes the amount of cubes $K$.}
+    \label{fig:k-big-cubes}
+\end{figure}
+%%
+\begin{figure}
+	\pgfplotstableread{\subdir/k-dia.dat}{\table}
+	
+	\begin{tikzpicture}[scale=\scale]
+		\begin{axis}[		
+			xmin = 50, xmax = 500,
+			ymin = 0, ymax = 250,
+			xtick distance = 50,
+			ytick distance = 200,
+			grid = none,
+			minor tick num = 5,
+			major grid style = {lightgray},
+			minor grid style = {lightgray!25},
+			width = \textwidth +20,
+			height = 0.75\textwidth,
+			legend cell align = {left},
+			legend pos = south east,
+			legend style={
+				at={(0,0)},
+				anchor=north,at={(axis description cs:0.3,-0.1)}}
+			]
+			
+			\addplot[blue] table [x = {x}, y = {y1}] {\table};
+			
+			\addplot[red] table [x ={x}, y = {y2}] {\table};
+			
+			\addplot[teal] table [x = {x}, y = {y3}] {\table};
+			
+			\addplot[purple] table [x = {x}, y = {y4}] {\table};
+			\addplot[orange] table [x = {x}, y = {y5}] {\table};
+			\addplot[gray] table [x = {x}, y = {y6}] {\table};
+			
+			
+			\legend{
+				overshoot\_unary, 
+				overshoot\_binary,
+				max\_unary,
+				max\_binary,
+				max\_optimized,
+				mondec$_1$
+			}
+		\end{axis}
+		
+	\end{tikzpicture}
+	\caption{k-dia: Benchmark on K Diagonal in $\mathbb{Z}^2$. The x-axis encodes the maximal value for x and y.}
+	\label{fig:k-dia}
+\end{figure}
+%%
+
+\begin{figure}
+	\pgfplotstableread{\subdir/mondec.dat}{\table}
+	
+	\begin{tikzpicture}[scale=\scale]
+		\begin{axis}[		
+			xmin = 50, xmax = 500,
+			ymin = 0, ymax = 250,
+			xtick distance = 50,
+			ytick distance = 200,
+			grid = none,
+			minor tick num = 5,
+			major grid style = {lightgray},
+			minor grid style = {lightgray!25},
+			width = \textwidth+20,
+			height = 0.75\textwidth,
+			legend cell align = {left},
+			legend pos = south east,
+			legend style={
+				at={(0,0)},
+				anchor=north,at={(axis description cs:0.3,-0.1)}}
+			]
+			
+			\addplot[orange] table [x = {x}, y = {y1}] {\table};
+			\addplot[gray] table [x ={x}, y = {y2}] {\table};
+			
+			\legend{
+				max\_optimized,
+				mondec$_1$
+			}
+			
+		\end{axis}
+		
+	\end{tikzpicture}
+	\caption{mondec: Benchmark on Example $2$ in $\mathbb{Z}^2$. The x-axis encodes parameter $K$.}
+	\label{fig:mondec-implies}
+\end{figure}
+\end{document}
