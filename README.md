@@ -1,6 +1,7 @@
 # Learning Cubes
 
-Link to the .ova file containing this tool: https://drive.google.com/file/d/1bN5GSb788YajaNAy6Zxwpgi9NW4-uWxL/view?usp=sharing
+Link to the .ova file containing this tool: https://zenodo.org/record/4742954
+The password of the VM is "cav".
 
 Run the .ova file as follows:
 
